@@ -32,49 +32,23 @@ export default function HomePage() {
     setIsCollecting(true);
     let progressValue = 0;
     const interval = setInterval(() => {
-      progressValue += 10; // Incrementar el progreso en 10%
+      progressValue += 5; // Incrementar el progreso en 10%
       setProgress(progressValue);
       if (progressValue >= 100) {
         clearInterval(interval);
         setTimeout(() => {
           setIsCollecting(false); // Ocultar la barra al finalizar
           alert("Recolección de datos completada exitosamente.");
-          router.push("/validacion")
+          router.push("/validacion");
         }, 500);
       }
     }, 300); // Actualización cada 300ms
   };
-  const handleRegistration = async (e: React.FormEvent<HTMLFormElement>) => {
+
+  const handleRegistration = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const form = e.currentTarget;
-    const formData = new FormData(form);
-
-    const payload = {
-      ruc: formData.get("ruc"),
-      razon_social: formData.get("razon_social"),
-      email: formData.get("email"),
-      telefono: formData.get("telefono"),
-      ubicacion: formData.get("ubicacion"),
-      autorizacion: formData.get("autorizacion") === "on", // Checkbox
-    };
-
-    try {
-      const response = await fetch("http://127.0.0.1:5000/api/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-      const data = await response.json();
-      if (response.ok) {
-        alert(data.message);
-        startSimulation(); // Iniciar la simulación de recolección
-      } else {
-        alert(data.error || "Error al registrar la empresa.");
-      }
-    } catch (error) {
-      console.error("Error al conectar con el backend:", error);
-      alert("Error al conectar con el backend.");
-    }
+    alert("Registro simulado exitosamente.");
+    startSimulation(); // Iniciar la simulación de recolección
   };
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center p-6">
